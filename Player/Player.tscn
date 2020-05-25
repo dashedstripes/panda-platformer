@@ -13,6 +13,7 @@ extents = Vector2( 3, 7 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "fall"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:frame")
 tracks/0/interp = 1
@@ -28,6 +29,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "idle"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:frame")
 tracks/0/interp = 1
@@ -43,6 +45,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=4]
 resource_name = "jump"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:frame")
 tracks/0/interp = 1
@@ -56,7 +59,7 @@ tracks/0/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "run_right"
 length = 0.8
 loop = true
@@ -72,18 +75,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -95,7 +86,6 @@ jump = 200
 
 [node name="AnimatedSprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-flip_h = true
 hframes = 6
 region_rect = Rect2( 0, 0, 16, 16 )
 
@@ -107,7 +97,7 @@ shape = SubResource( 1 )
 anims/fall = SubResource( 2 )
 anims/idle = SubResource( 3 )
 anims/jump = SubResource( 4 )
-anims/run_right = SubResource( 6 )
+anims/run_right = SubResource( 5 )
 
 [node name="StateMachine" parent="." instance=ExtResource( 3 )]
 
