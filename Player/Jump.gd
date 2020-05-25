@@ -5,7 +5,7 @@ var fsm = StateMachine
 onready var animationPlayer = owner.get_node("AnimationPlayer")
 
 func enter():
-	animationPlayer.play("Jump")
+	animationPlayer.play("jump")
 	owner.velocity.y = -owner.jump
 
 func exit(next_state):

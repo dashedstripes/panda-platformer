@@ -5,7 +5,7 @@ var fsm = StateMachine
 onready var animationPlayer = owner.get_node("AnimationPlayer")
 
 func enter():
-	animationPlayer.play("Fall")
+	animationPlayer.play("fall")
 
 func exit(next_state):
 	fsm.change_to(next_state)

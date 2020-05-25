@@ -6,7 +6,7 @@ onready var animationPlayer = owner.get_node("AnimationPlayer")
 onready var sprite = owner.get_node("AnimatedSprite")
 
 func enter():
-	animationPlayer.play("walk_right")
+	animationPlayer.play("run_right")
 	
 func exit(new_state):
 	fsm.change_to(new_state)
