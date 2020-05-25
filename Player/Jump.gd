@@ -2,14 +2,17 @@ extends Node
 
 var fsm = StateMachine
 
+onready var animationPlayer = owner.get_node("AnimationPlayer")
+
 func enter():
+	animationPlayer.play("Jump")
 	owner.velocity.y = -owner.jump
 
 func exit(next_state):
 	fsm.change_to(next_state)
 
 func physics_process(delta):	
-	if(owner.velocity.y > 0):
+	if(owner.velocity.y > 100):
 		exit("Fall")
 	
 	owner.apply_gravity(delta)	

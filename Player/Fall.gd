@@ -2,9 +2,10 @@ extends Node
 
 var fsm = StateMachine
 
+onready var animationPlayer = owner.get_node("AnimationPlayer")
+
 func enter():
-	
-	pass
+	animationPlayer.play("Fall")
 
 func exit(next_state):
 	fsm.change_to(next_state)

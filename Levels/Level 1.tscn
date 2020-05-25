@@ -162,3 +162,24 @@ tile_data = PoolIntArray( -131072, 1, 0, -131071, 1, 0, -131070, 1, 0, -131069, 
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 117.703, 99.0922 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+limit_left = 0
+limit_top = -250
+limit_right = 350
+limit_bottom = 180
+smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Version" type="Label" parent="CanvasLayer"]
+margin_left = 306.184
+margin_top = 172.485
+margin_right = 345.184
+margin_bottom = 186.485
+rect_scale = Vector2( 0.25, 0.25 )
+text = "v0.1.0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
