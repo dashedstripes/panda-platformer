@@ -255,7 +255,7 @@ margin_top = 172.485
 margin_right = 345.184
 margin_bottom = 186.485
 rect_scale = Vector2( 0.25, 0.25 )
-text = "v0.2.0"
+text = "v0.2.1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
