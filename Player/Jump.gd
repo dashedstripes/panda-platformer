@@ -14,6 +14,6 @@ func exit(next_state):
 func physics_process(delta):	
 	if(owner.velocity.y > 100):
 		exit("Fall")
-	
+			
 	owner.apply_gravity(delta)	
 	owner.apply_velocity(delta)
