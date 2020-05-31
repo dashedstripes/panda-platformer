@@ -17,5 +17,8 @@ func physics_process(delta):
 	if(Input.is_action_just_pressed("jump") && owner.is_on_floor()):
 		exit("Jump")
 		
+	if(Input.is_action_just_pressed("attack")):
+		exit("Idle Attack")
+		
 	owner.apply_gravity(delta)
 	owner.apply_velocity(delta)

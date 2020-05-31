@@ -6,7 +6,7 @@ onready var animationPlayer = owner.get_node("AnimationPlayer")
 onready var sprite = owner.get_node("AnimatedSprite")
 
 func enter():
-	animationPlayer.play("run_right")
+	animationPlayer.play("run")
 	
 func exit(new_state):
 	fsm.change_to(new_state)
@@ -19,6 +19,9 @@ func physics_process(delta):
 	
 	if(Input.is_action_just_pressed("jump") && owner.is_on_floor()):
 		exit("Jump")
+	
+	if(Input.is_action_just_pressed("attack")):
+		exit("Run Attack")
 	
 	owner.apply_gravity(delta)
 	owner.apply_velocity(delta)

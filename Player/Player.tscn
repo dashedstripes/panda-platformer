@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/Player.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -7,14 +7,70 @@
 [ext_resource path="res://Player/Run.gd" type="Script" id=5]
 [ext_resource path="res://Player/Jump.gd" type="Script" id=6]
 [ext_resource path="res://Player/Fall.gd" type="Script" id=7]
-[ext_resource path="res://Player/Weapon.gd" type="Script" id=8]
-[ext_resource path="res://Weapons/BambooSword.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Player/Idle Attack.gd" type="Script" id=8]
+[ext_resource path="res://Player/Run Attack.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3, 7 )
 
 [sub_resource type="Animation" id=2]
-resource_name = "fall"
+resource_name = "attack_idle"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 7, 8 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Weapon/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "attack_run"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 12 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Weapon/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[sub_resource type="Animation" id=4]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:frame")
@@ -29,8 +85,7 @@ tracks/0/keys = {
 "values": [ 5 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "idle"
+[sub_resource type="Animation" id=5]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:frame")
@@ -45,8 +100,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "jump"
+[sub_resource type="Animation" id=6]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:frame")
@@ -61,8 +115,8 @@ tracks/0/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "run_right"
+[sub_resource type="Animation" id=7]
+resource_name = "run"
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -78,29 +132,39 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 5, 2 )
+
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
 speed = 80
 jump = 400
 
 [node name="AnimatedSprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-hframes = 6
-frame = 5
+offset = Vector2( 0, -16 )
+hframes = 13
+frame = 11
 region_rect = Rect2( 0, 0, 16, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 1 )
+position = Vector2( 0, -7 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fall = SubResource( 2 )
-anims/idle = SubResource( 3 )
-anims/jump = SubResource( 4 )
-anims/run_right = SubResource( 5 )
+anims/attack_idle = SubResource( 2 )
+anims/attack_run = SubResource( 3 )
+anims/fall = SubResource( 4 )
+anims/idle = SubResource( 5 )
+anims/jump = SubResource( 6 )
+anims/run = SubResource( 7 )
+
+[node name="Weapon" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon"]
+position = Vector2( 7, -8 )
+shape = SubResource( 8 )
+disabled = true
 
 [node name="StateMachine" parent="." instance=ExtResource( 3 )]
 
@@ -116,8 +180,10 @@ script = ExtResource( 6 )
 [node name="Fall" type="Node" parent="StateMachine"]
 script = ExtResource( 7 )
 
-[node name="Weapon" type="Node2D" parent="."]
+[node name="Idle Attack" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
 
-[node name="BambooSword" parent="Weapon" instance=ExtResource( 9 )]
-position = Vector2( 3, -6.5 )
+[node name="Run Attack" type="Node" parent="StateMachine"]
+script = ExtResource( 9 )
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Run Attack" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Idle Attack" method="_on_AnimationPlayer_animation_finished"]
