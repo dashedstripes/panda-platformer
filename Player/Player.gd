@@ -1,10 +1,13 @@
 extends KinematicBody2D
 
+signal on_health_change
+
 onready var sprite = $AnimatedSprite
+onready var health = $Health
 
 export var acceleration = 600
 export var friction = 600
-export var speed = 150
+export var speed = 100
 export var gravity = 1200
 export var jump = 300
 
@@ -39,3 +42,9 @@ func apply_movement(delta):
 		velocity = velocity.move_toward(input_velocity * speed, delta * acceleration)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, delta * friction)
+
+
+func _on_Hitbox_hit(area):
+	if(area.name == "Enemy"):
+		health.subtract_health(1)
+		emit_signal("on_health_change", health.current_health)
