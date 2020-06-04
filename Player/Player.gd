@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 signal on_health_change
 
+onready var weapon = $Weapon
 onready var sprite = $AnimatedSprite
 onready var health = $Health
 
@@ -18,8 +19,10 @@ var input_velocity = Vector2.ZERO
 func set_sprite_direction():
 	if(direction == Vector2.LEFT):
 		sprite.flip_h = true
+		weapon.position.x = -14
 	if(direction == Vector2.RIGHT):
 		sprite.flip_h = false
+		weapon.position.x = 0
 
 func apply_gravity(delta):
 	velocity.y += gravity * delta

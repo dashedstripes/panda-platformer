@@ -4,7 +4,7 @@
 [ext_resource path="res://Assets/Ground.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Bamboo.png" type="Texture" id=3]
 [ext_resource path="res://Enemy/Enemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://UI/Health Bar.gd" type="Script" id=5]
+[ext_resource path="res://UI/HeartsContainer.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -236,7 +236,7 @@ tile_data = PoolIntArray( 131070, 1, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 
 tile_set = SubResource( 8 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( -131072, 1, 0, -131071, 1, 0, -131070, 1, 0, -131069, 1, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 65539, 0, 0, 65553, 1, 0, 65554, 2, 0, 131089, 0, 0, 131090, 0, 0, 131091, 1, 0, 262148, 1, 0 )
+tile_data = PoolIntArray( 65553, 1, 0, 65554, 2, 0, 131089, 0, 0, 131090, 0, 0, 131091, 1, 0, 262148, 1, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 117.703, 99.0922 )
@@ -249,21 +249,9 @@ limit_right = 350
 limit_bottom = 180
 smoothing_enabled = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Health Bar" type="Label" parent="CanvasLayer"]
-margin_left = 280.0
-margin_top = 6.0
-margin_right = 346.0
-margin_bottom = 20.0
-rect_scale = Vector2( 0.5, 0.5 )
-text = "Health: 10"
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Version" type="Label" parent="CanvasLayer"]
+[node name="Version" type="Label" parent="UI"]
 margin_left = 306.184
 margin_top = 172.485
 margin_right = 345.184
@@ -274,6 +262,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="HeartsContainer" parent="UI" instance=ExtResource( 6 )]
+margin_right = 120.0
+margin_bottom = 25.0
+
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
 position = Vector2( 211, 124 )
-[connection signal="on_health_change" from="Player" to="CanvasLayer/Health Bar" method="_on_Player_on_health_change"]
+[connection signal="on_health_change" from="Player" to="UI/HeartsContainer" method="_on_Player_on_health_change"]
